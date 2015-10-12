@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[DHT Protocol：BitTorrent DHT 协议中文翻译]]></title>
-    <link href="http://herro.ml/2015/10/12/what-is-DHT/"/>
-    <id>http://herro.ml/2015/10/12/what-is-DHT/</id>
+    <link href="http://herro.ml/2015/what-is-DHT/"/>
+    <id>http://herro.ml/2015/what-is-DHT/</id>
     <published>2015-10-12T08:15:57.000Z</published>
     <updated>2015-10-12T08:30:35.265Z</updated>
     <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>BitTorrent 使用”分布式哈希表”(DHT)来为无 tracker 的种子(torrents)存储 peer 之间的联系信息。这样每个 peer 都成了 tracker。这个协议基于 Kademila[1] 网络并且在 UDP 上实现。</p>
@@ -40,8 +40,8 @@
   
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <link href="http://herro.ml/2015/10/10/hello-world/"/>
-    <id>http://herro.ml/2015/10/10/hello-world/</id>
+    <link href="http://herro.ml/2015/hello-world/"/>
+    <id>http://herro.ml/2015/hello-world/</id>
     <published>2015-10-10T02:10:10.000Z</published>
     <updated>2015-10-12T07:31:01.008Z</updated>
     <content type="html"><![CDATA[<p>欢迎使用Hexo!</p>
