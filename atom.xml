@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://herro.ml/"/>
-  <updated>2015-10-12T08:30:35.265Z</updated>
+  <updated>2015-10-14T10:19:36.841Z</updated>
   <id>http://herro.ml/</id>
   
   <author>
@@ -15,11 +15,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[DHT Protocol：BitTorrent DHT 协议中文翻译]]></title>
+    <title><![CDATA[【转】大白话讲解DHT原理及出现历史]]></title>
+    <link href="http://herro.ml/2015/easy-know-DHT/"/>
+    <id>http://herro.ml/2015/easy-know-DHT/</id>
+    <published>2015-10-14T10:11:20.000Z</published>
+    <updated>2015-10-14T10:19:36.841Z</updated>
+    <content type="html"><![CDATA[<p>因有些读者说”如何养一只DHT爬虫”文讲得不是很”白痴”, 所以再开篇文, 来个通俗的.</p>
+<p>要想了解DHT出现历史的话, 请先准备好一瓶啤酒, 听我慢慢道来:</p>
+<h3 id="客户端_&lt;-&gt;_服务器端:">客户端 &lt;-&gt; 服务器端:</h3><p>很久很久以前, 当要下载一个资源时, 那么只能去提供该资源的服务器进行下载, 如果同时只有10来个人进行下载的话, 服务器负载还没什么问题, 但是, 当这资源越来越热门时, 就会有成千上万的人蜂拥进来, 那么服务器就会受不了! 为了支持更多人同时下载, 就会加大带宽, 增加服务器! 这成本实在是太高了! .</p>
+<h3 id="客户端_&lt;-_tracker_-&gt;_客户端:">客户端 &lt;- tracker -&gt; 客户端:</h3><p>后来, 一个很牛逼的技术出现了, 那就是架设一台tracker服务器. 当张三要发布”我与苍井空大战一夜.avi”的资源时, 对该资源制作一个种子, 这个种子记录了该资源的tracker服务器地址, 名字, 大小, 创建时间, 块长度, 每一逻辑块的hash值等描述信息. 告知tracker服务器我有这么个资源, 然后张三把这个很小很小的种子文件发布到各个网站, 这邪恶的资源当然就在张三电脑里. 当李四下载该种子后, 用比如迅雷, 比特精灵这类似的软件打开时, 该软件就会向种子记录的tracker进行请求, 说要下载”我与苍井空大战一夜.avi”资源, tracker就会自己找到谁有该资源, 当找到张三有时, tracker就会把张三的地址信息发给李四, 然后李四就会连接张三进行下载. 在这里, tracker也会把李四给记录下载, 当王五也想下载时, tracker会把张三, 李四的地址信息发给王五, 那么王五可能会到张三那里下载该资源的前一半, 到李四下载后一半. 后面就以此循环.</p>
+<p>这里的tracker就不需要存储真实资源, 它只仅仅存储谁有什么该资源的信息而已, 所以需要的带宽和服务器配置就不需要那么高了.这就是为什么”下载人数越多, 下载速度越快”. 当然, 上述的描述肯定没那么详细, 想要看详细技术的话, 自行google去或者看www.bittorrent.org/beps/bep_0003.html, www.bittorrent.org/introduction.html官方文档. 你们可以发现, tracker这种技术有一个致命缺点: 假如所有主要的tracker服务器被封后(因含有色情种子, 反party视频种子等)或者出了故障, 你们就算得到了种子, 谁来当中介人? 你们怎么去下载资源? 有木有人记得几年前, 海盗湾因涉及版权法什么的被抓了? 嗯, 话说那年苍井空还是处女, 我还是个玩泥巴的少年. 哈哈!</p>
+<h3 id="客户端_&lt;-&gt;_客户端_(P2P):">客户端 &lt;-&gt; 客户端 (P2P):</h3><p>后来, 一个更牛逼哄哄的技术又出现了, 你们也猜到了, DHT. </p>
+<p>DHT爬虫原理是什么, 如何工作的?</p>
+<h4 id="原理大白话版:">原理大白话版:</h4><p>我只有张三这么个邻居, 但是我立志要做包打听这个神圣的职业, 于是我要张三把他的邻居李四, 王五介绍给我, 当我认识了李四, 王五后, 也认识了他们的邻居圈, 照此不停地循环下去. 在此期间, 我会跟成千上万的邻居聊天, 他们会给我说一些家常, 新闻, 八卦什么的, 我都一一给记录下来. 假如某一天, 我其中一邻居王麻子向我打听谁家有发情的公猪, 我会把熊大的地址告诉他. 要是后来王麻子告诉我他得到了这个公猪并与自己的母猪交配后, 并下了很多小公猪, 这些小公猪长大并进入发情期, 我会把这事儿记录下来, 当其他邻居也问我这么个问题时, 我就可以告诉他们可以去王麻子和熊大家去要. 久而久之, 我就真正成为了包打听, 知道目前什么东西抢手. 正如那句”当你认识了十个人时, 你就认识了全世界.” (笔者是乡下混混, 原谅我用这么挫的例子)<br>从上述可以看到这些特点: 邻居都是相对较近的, 都在收敛在一定范围里; 不主动打听消息; 认识的邻居多.</p>
+<p>我这里引用个小虾的形象比拟: 把DHT网络比作一个朋友圈子, 你想进入这个圈子必须要有一个人带领你进去, 通常会有一些特定人负责介绍你进入这个圈子. 当你被A带进这个朋友圈, 此刻你就只认识A而已. 但是你的目的是想找奥巴马总统, 所以你会问A要奥巴马的联系方式, 但是A没有奥巴马的联系方式, 他会介绍一个美国朋友B给你认识. 于是你去问B要奥巴马的联系方式, B其实也没有奥巴马的联系方式, 但是B认识一个州长C. 于是你又得到了C的联系方式, C把奥巴马的联系方式告诉你之后, 你就可以写信或者致电给奥巴马了. </p>
+<p>地址: <a href="http://xiaoxia.org/2013/05/11/magnet-search-engine/" target="_blank" rel="external">http://xiaoxia.org/2013/05/11/magnet-search-engine/</a> 建议把评论也看看, 评论还涉及到了一些技术解惑, 特别有用.</p>
+<h4 id="工作流程技术版:">工作流程技术版:</h4><p>拿一个通过磁力链接下载资源做简单讲解吧. 当你得到一个磁力链接, 使用比如迅雷, 迅雷就会实例化出一个DHT节点, 加入DHT网络, 然后把磁力链接的那个40字符的infohash提取出来, “逆算”成20字节的infohash, 向离该infohash最近的几个节点发送get_peers请求, 当得到对方回复peers列表时, 迅雷又实例化出一个BT客户端, 向这些peers请求下载种子, 得到种子并打开后, 如果有tracker列表, 就会像上面的”客户端 &lt;- tracker -&gt; 客户端”说的那样, 如果没有, 那一定会有拥有真正资源的node列表, 那么就会向这些node请求真实资源下载.</p>
+<p>注: 实际上, 迅雷得到磁力链接后, 会先到它自己的种子库里下载, 然后才估计通过DHT网络下载.</p>
+<h3 id="做一个DHT爬虫的大概步骤:">做一个DHT爬虫的大概步骤:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>, 生成一个node ID.</span><br><span class="line"><span class="number">2</span>, 构建路由表</span><br><span class="line"><span class="number">3</span>, 加入DHT网络, 不停地使用find_node</span><br><span class="line"><span class="number">4</span>, 处理ping, find_node, get_peers, announce_peer <span class="number">4</span>个请求</span><br><span class="line"><span class="number">5</span>, 定时刷新路由表</span><br><span class="line"><span class="number">6</span>, 持久存储路由表(可选)</span><br></pre></td></tr></table></figure>
+<h3 id="需要注意的地方:">需要注意的地方:</h3><p>1, 传输和接收时, 多字节数字都要按网络字节序来. 不然你接收的数字不是发送人写的那样, 你发出的数字, 对方接收的也不是你写的那样, 正如牛嘴对马嘴. 字符串就不需要”网络to主机”和”主机to网络”了, 毕竟用的都是ascii码, 每一个字符都是1字节, 转不转都是一样, 按顺序发出就是了. 详情请google网络字节序/主机字节序.</p>
+<p>2, DHT协议文档的那句”When a bucket is full of known good nodes, no more nodes may be added unless our own node ID falls within the range of the bucket.” 指的是当有一个新node将要插入对应的bucket时, 如果这个bucket是满的且好的node时, 在分裂之前, 把自身的node ID与这个bucket负责ID范围进行比较, 看是不是在这个范围里, 比如这个bucket负责范围是0至8, 那么待插入的新node的ID是7的话, 只有在满足0&lt;=7&lt;8的情况才可以进行拆该bucket, 不在这个范围时就直接抛弃.</p>
+<p>3, 当回复对方的时候, “transaction ID”(即”t”键)是对方的”transaction ID”, 只有这样, 对方才知道你回应的是对方的哪一个请求包. 要知道DHT是基于UDP的. 反过来, 你也知道对方回应的是你哪条请求. 用这个就可以做一个超时处理和回应处理, 把你发出请求的”transaction ID”值作为key, 为该key绑定一个回调函数, 然后开一个定时器, 时间到了就把这个回调函数删除了, 如果对方在这超时时间内回应, 就触发该回调函数, 做该做的事. 请求对方时, “transaction ID”是你自己随便指定的, 对方回复的信息包里的”t”就跟你之前的请求包的”t”一样.</p>
+<p>4, 要想认识很多的node, 你就要先认识一个长期在线的node, 比如开源软件transmissionbt就提供了一长期在线node, 地址为: dht.transmissionbt.com:6881. 然后使用find_node向这个node请求, 请求文里的target是自身node ID, 意思就是向它询问离我最近的node都有哪些? 对方回应后, 提取里面的node, 向这些node进行find_node, 循环不停地重复.</p>
+<p>ok! 现在应该对DHT有了大概了解, 如真想去实现一个DHT爬虫的话, 那么就需要看官方文档了, 里面对实现算法做了介绍, 比任何人”翻译”的博文都要详细正确得多, 完全靠博文就能写DHT爬虫是不太现实滴, 只能作为参考.</p>
+<p>要想看个大概样例可移步到如何养一只DHT爬虫</p>
+<p>欢迎吐槽拍砖, 有不对的地方请指点.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>因有些读者说”如何养一只DHT爬虫”文讲得不是很”白痴”, 所以再开篇文, 来个通俗的.</p>
+<p>要想了解DHT出现历史的话, 请先准备好一瓶啤酒, 听我慢慢道来:</p>
+<h3 id="客户端_&lt;-&gt;_服务器端:">客户端 &lt;-&gt; 服务器端]]>
+    </summary>
+    
+      <category term="DHT" scheme="http://herro.ml/tags/DHT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[【转】DHT Protocol：BitTorrent DHT 协议中文翻译]]></title>
     <link href="http://herro.ml/2015/what-is-DHT/"/>
     <id>http://herro.ml/2015/what-is-DHT/</id>
     <published>2015-10-12T08:15:57.000Z</published>
-    <updated>2015-10-12T08:30:35.265Z</updated>
+    <updated>2015-10-14T10:19:38.791Z</updated>
     <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>BitTorrent 使用”分布式哈希表”(DHT)来为无 tracker 的种子(torrents)存储 peer 之间的联系信息。这样每个 peer 都成了 tracker。这个协议基于 Kademila[1] 网络并且在 UDP 上实现。</p>
 <p>请注意本文档中使用的术语，以免混乱。</p>
 <ul>
@@ -27,6 +64,93 @@
 <li>“节点” 是在一个 UDP 端口上监听的客户端/服务器，它实现了 DHT(分布式哈希表) 协议。</li>
 </ul>
 <p>DHT 由节点组成，它存储了 peer 的位置。BitTorrent 客户端包含一个 DHT 节点，这个节点用来联系 DHT 中其他节点，从而得到 peer 的位置，进而通过 BitTorrent 协议下载。</p>
+<h3 id="概述_Overview">概述 Overview</h3><p>每个节点有一个全局唯一的标识符，作为 “node ID”。节点 ID 是一个随机选择的 160bit 空间，BitTorrent infohash[2] 也使用这样的 160bit 空间。<br>“距离”用来比较两个节点 ID 之间或者节点 ID 和 infohash 之间的”远近”。节点必须维护一个路由表，路由表中含有一部分其它节点的联系信息。其它节点距离自己越近时，路由表信息越详细。因此每个节点都知道 DHT 中离自己很”近”的节点的联系信息，而离自己非常远的 ID 的联系信息却知道的很少。</p>
+<p>在 Kademlia 网络中，距离是通过异或(XOR)计算的，结果为无符号整数。distance(A, B) = |A xor B|，值越小表示越近。</p>
+<p>当节点要为 torrent 寻找 peer 时，它将自己路由表中的节点 ID 和 torrent 的 infohash 进行”距离对比”。然后向路由表中离 infohash 最近的节点发送请求，问它们正在下载这个 torrent 的 peer 的联系信息。如果一个被联系的节点知道下载这个 torrent 的 peer 信息，那个 peer 的联系信息将被回复给当前节点。否则，那个被联系的节点则必须回复在它的路由表中离该 torrent 的infohash 最近的节点的联系信息。最初的节点重复地请求比目标 infohash更近的节点，直到不能再找到更近的节点为止。查询完了之后，客户端把自己作为一个 peer 插入到所有回复节点中离种子最近的那个节点中。</p>
+<p>请求 peer 的返回值包含一个不透明的值，称之为”令牌(token)”。如果一个节点宣布它所控制的 peer 正在下载一个种子，它必须在回复请求节点的同时，附加上对方向我们发送的最近的”令牌(token)”。这样当一个节点试图”宣布”正在下载一个种子时，被请求的节点核对令牌和发出请求的节点的 IP 地址。这是为了防止恶意的主机登记其它主机的种子。由于令牌仅仅由请求节点返回给收到令牌的同一个节点，所以没有规定他的具体实现。但是令牌必须在一个规定的时间内被接受，超时后令牌则失效。在 BitTorrent 的实现中，token 是在 IP 地址后面连接一个 secret(通常是一个随机数)，这个 secret 每五分钟改变一次，其中 token 在十分钟以内是可接受的。</p>
+<h3 id="路由表_Routing_Table">路由表 Routing Table</h3><p>每个节点维护一个路由表保存已知的好节点。路由表中的节点是用来作为在 DHT 中请求的起始点。路由表中的节点是在不断的向其他节点请求过程中，对方节点回复的。</p>
+<p>并不是我们在请求过程中收到得节点都是平等的，有的节点是好的，而另一些则不是。许多使用 DHT 协议的节点都可以发送请求并接收回复，但是不能主动回复其他节点的请求。节点的路由表只包含已知的好节点，这很重要。好节点是指在过去的 15 分钟以内，曾经对我们的某一个请求给出过回复的节点，或者曾经对我们的请求给出过一个回复(不用在15分钟以内)，并且在过去的 15 分钟给我们发送过请求。上述两种情况都可将节点视为好节点。在 15 分钟之后，对方没有上述 2 种情况发生，这个节点将变为可疑的。当节点不能给我们的一系列请求给出回复时，这个节点将变为坏的。相比那些未知状态的节点，已知的好节点会被给于更高的优先级。</p>
+<p>路由表覆盖从 0 到 2^160 全部的节点 ID 空间。路由表又被划分为桶(bucket)，每个桶包含一部分的 ID 空间。空的路由表只有一个桶，它的 ID 范围从 min=0 到 max=2^160。当 ID 为 N 的节点插入到表中时，它将被放到 ID 范围在 min &lt;= N &lt; max 的 桶 中。空的路由表只有一个桶，所以所有的节点都将被放到这个桶中。每个桶最多只能保存 K 个节点，当前 K=8。当一个桶放满了好节点之后，将不再允许新的节点加入，除非我们自身的节点 ID 在这个桶的范围内。在这样的情况下，这个桶将被分裂为 2 个新的桶，每个新桶的范围都是原来旧桶的一半。原来旧桶中的节点将被重新分配到这两个新的桶中。如果一个新表只有一个桶，这个包含整个范围的桶将总被分裂为 2 个新的桶，每个桶的覆盖范围从 0..2^159 和 2^159..2^160。</p>
+<p>当桶装满了好节点，新的节点会被丢弃。一旦桶中的某个节点变为了坏的节点，那么我们就用新的节点来替换这个坏的节点。如果桶中有在 15 分钟内都没有活跃过的节点，我们将这样的节点视为可疑的节点，这时我们向最久没有联系的节点发送 ping。如果被 ping 的节点给出了回复，那么我们向下一个可疑的节点发送 ping，不断这样循环下去，直到有某一个节点没有给出 ping 的回复，或者当前桶中的所有节点都是好的(也就是所有节点都不是可疑节点，他们在过去 15 分钟内都有活动)。如果桶中的某个节点没有对我们的 ping 给出回复，我们最好再试一次(再发送一次 ping，因为这个节点也许仍然是活跃的，但由于网络拥塞，所以发生了丢包现象，注意 DHT 的包都是 UDP 的)，而不是立即丢弃这个节点或者直接用新节点来替代它。这样，我们得路由表将充满稳定的长时间在线的节点。</p>
+<p>每个桶都应该维持一个 lastchange 字段来表明桶中节点的”新鲜”度。当桶中的节点被 ping 并给出了回复，或者一个节点被加入到了桶，或者一个节点被新的节点所替代，桶的 lastchange 字段都应当被更新。如果一个桶的 lastchange 在过去的 15 分钟内都没有变化，那么我们将更新它。这个更新桶操作是这样完成的：从这个桶所覆盖的范围中随机选择一个 ID，并对这个 ID 执行 find_nodes 查找操作。常常收到请求的节点通常不需要常常更新自己的桶，反之，不常常收到请求的节点常常需要周期性的执行更新所有桶的操作，这样才能保证当我们用到 DHT 的时候，里面有足够多的好的节点。</p>
+<p>在插入第一个节点到路由表并启动服务后，这个节点应试着查找 DHT 中离自己更近的节点，这个查找工作是通过不断的发出 find_node 消息给越来越近的节点来完成的，当不能找到更近的节点时，这个扩散工作就结束了。路由表应当被启动工作和客户端软件保存（也就是启动的时候从客户端中读取路由表信息，结束的时候客户端软件记录到文件中）。</p>
+<h3 id="BitTorrent_协议扩展_BitTorrent_Protocol_Extension">BitTorrent 协议扩展 BitTorrent Protocol Extension</h3><p>BitTorrent 协议已经被扩展为可以在通过 tracker 得到的 peer 之间互相交换节点的 UDP 端口号(也就是告诉对方我们的 DHT 服务端口号)，在这样的方式下，客户端可以通过下载普通的种子文件来自动扩展 DHT 路由表。新安装的客户端第一次试着下载一个无 tracker 的种子时，它的路由表中将没有任何节点，这是它需要在 torrent 文件中找到联系信息。</p>
+<p>peers 如果支持 DHT 协议就将 BitTorrent 协议握手消息的保留位的第 8 字节的最后一位置为 1。这时如果 peer 收到一个 handshake 表明对方支持 DHT 协议，就应该发送 PORT 消息。它由字节 0x09 开始，payload 的长度是 2 个字节，包含了这个 peer 的 DHT 服务使用的网络字节序的 UDP 端口号。当 peer 收到这样的消息是应当向对方的 IP 和消息中指定的端口号的节点发送 ping。如果收到了 ping 的回复，那么应当使用上述的方法将新节点的联系信息加入到路由表中。</p>
+<h3 id="Torrent_文件扩展_Torrent_File_Extensions">Torrent 文件扩展 Torrent File Extensions</h3><p>一个无 tracker 的 torrent 文件字典不包含 announce 关键字，而使用 nodes 关键字来替代。这个关键字对应的内容应该设置为 torrent 创建者的路由表中 K 个最接近的节点。可供选择的，这个关键字也可以设置为一个已知的可用节点，比如这个 torrent 文件的创建者。请不要自动加入 router.bittorrent.com 到 torrent 文件中或者自动加入这个节点到客户端路由表中。</p>
+<ul>
+<li>nodes = [[“<host>“, <port>], [“<host>“, <port>], …]</port></host></port></host></li>
+<li>nodes = [[“127.0.0.1”, 6881], [“your.router.node”, 4804]]</li>
+</ul>
+<h3 id="KRPC_协议_KRPC_Protocol">KRPC 协议 KRPC Protocol</h3><p>KRPC 协议是由 bencode 编码组成的一个简单的 RPC 结构，他使用 UDP 报文发送。一个独立的请求包被发出去然后一个独立的包被回复。这个协议没有重发。它包含 3 种消息：请求，回复和错误。对DHT协议而言，这里有 4 种请求：ping，find_node，get_peers 和 announce_peer。</p>
+<p>一条 KRPC 消息由一个独立的字典组成，其中有 2 个关键字是所有的消息都包含的，其余的附加关键字取决于消息类型。每条消息都包含 t 关键字，它是一个代表了 transaction ID 的字符串类型。transaction ID 由请求节点产生，并且回复中要包含回显该字段，所以回复可能对应一个节点的多个请求。transaction ID 应当被编码为一个短的二进制字符串，比如 2 个字节，这样就可以对应 2^16 个请求。另外每个 KRPC 消息还应该包含的关键字是 y，它由一个字节组成，表明这个消息的类型。y 对应的值有三种情况：q 表示请求，r 表示回复，e 表示错误。</p>
+<h4 id="联系信息编码_Contact_Encoding">联系信息编码 Contact Encoding</h4><p>Peers 的联系信息被编码为 6 字节的字符串。又被称为 “CompactIP-address/port info”，其中前 4 个字节是网络字节序的 IP 地址，后 2 个字节是网络字节序的端口。</p>
+<p>节点的联系信息被编码为 26 字节的字符串。又被称为 “Compactnode info”，其中前 20 字节是网络字节序的节点 ID，后面 6 个字节是 peers 的 “CompactIP-address/port info”。</p>
+<h4 id="请求_Queries">请求 Queries</h4><p>请求，对应于 KPRC 消息字典中的 y 关键字的值是 q，它包含 2 个附加的关键字 q 和 a。关键字 q 是字符串类型，包含了请求的方法名字。关键字 a 一个字典类型包含了请求所附加的参数。</p>
+<h4 id="回复_Responses">回复 Responses</h4><p>回复，对应于 KPRC 消息字典中的 y 关键字的值是 r，包含了一个附加的关键字 r。关键字 r 是字典类型，包含了返回的值。发送回复消息是在正确解析了请求消息的基础上完成的。</p>
+<h4 id="错误_Errors">错误 Errors</h4><p>错误，对应于 KPRC 消息字典中的 y 关键字的值是 e，包含一个附加的关键字 e。关键字 e 是列表类型。第一个元素是数字类型，表明了错误码。第二个元素是字符串类型，表明了错误信息。当一个请求不能解析或出错时，错误包将被发送。下表描述了可能出现的错误码：</p>
+<ul>
+<li>201 一般错误</li>
+<li>202 服务错误</li>
+<li>203 协议错误，比如不规范的包，无效的参数，或者错误的 toke</li>
+<li>204 未知方法</li>
+</ul>
+<h4 id="错误包例子_Example_Error_Packets:">错误包例子 Example Error Packets:</h4><ul>
+<li>generic error = {“t”:”aa”, “y”:”e”, “e”:[201, “A Generic Error Ocurred”]}</li>
+<li>bencoded = d1:eli201e23:A Generic Error Ocurrede1:t2:aa1:y1:ee</li>
+</ul>
+<h3 id="DHT_请求_DHT_Queries">DHT 请求 DHT Queries</h3><p>所有的请求都包含一个关键字 id，它包含了请求节点的节点 ID。所有的回复也包含关键字id，它包含了回复节点的节点 ID。</p>
+<h4 id="ping">ping</h4><p>最基础的请求就是 ping。这时 KPRC 协议中的 “q” = “ping”。Ping 请求包含一个参数 id，它是一个 20 字节的字符串包含了发送者网络字节序的节点 ID。对应的 ping 回复也包含一个参数 id，包含了回复者的节点 ID。</p>
+<ul>
+<li>参数: {“id” : “<querying nodes="" id="">“}</querying></li>
+<li>回复: {“id” : “<queried nodes="" id="">“}</queried></li>
+</ul>
+<h4 id="报文包例子_Example_Packets">报文包例子 Example Packets</h4><ul>
+<li>ping Query = {“t”:”aa”, “y”:”q”, “q”:”ping”, “a”:{“id”:”abcdefghij0123456789”}}</li>
+<li>bencoded = d1:ad2:id20:abcdefghij0123456789e1:q4:ping1:t2:aa1:y1:qe</li>
+<li>Response = {“t”:”aa”, “y”:”r”, “r”: {“id”:”mnopqrstuvwxyz123456”}}</li>
+<li>bencoded = d1:rd2:id20:mnopqrstuvwxyz123456e1:t2:aa1:y1:re</li>
+</ul>
+<h4 id="find_node">find_node</h4><p>find_node 被用来查找给定 ID 的节点的联系信息。这时 KPRC 协议中的 “q” == “find_node”。find_node 请求包含 2 个参数，第一个参数是 id，包含了请求节点的ID。第二个参数是 target，包含了请求者正在查找的节点的 ID。当一个节点接收到了 find_node 的请求，他应该给出对应的回复，回复中包含 2 个关键字 id 和 nodes，nodes 是字符串类型，包含了被请求节点的路由表中最接近目标节点的 K(8) 个最接近的节点的联系信息。</p>
+<ul>
+<li>参数: {“id” : “<querying nodes="" id="">“, “target” : “<id of="" target="" node="">“}</id></querying></li>
+<li>回复: {“id” : “<queried nodes="" id="">“, “nodes” : “<compact node="" info="">“}</compact></queried></li>
+</ul>
+<h4 id="报文包例子_Example_Packets-1">报文包例子 Example Packets</h4><ul>
+<li>find_node Query = {“t”:”aa”, “y”:”q”, “q”:”find_node”, “a”: {“id”:”abcdefghij0123456789”, “target”:”mnopqrstuvwxyz123456”}}</li>
+<li>bencoded = d1:ad2:id20:abcdefghij01234567896:target20:mnopqrstuvwxyz123456e1:q9:find_node1:t2:aa1:y1:qe</li>
+<li>Response = {“t”:”aa”, “y”:”r”, “r”: {“id”:”0123456789abcdefghij”, “nodes”: “def456…”}}</li>
+<li>bencoded = d1:rd2:id20:0123456789abcdefghij5:nodes9:def456…e1:t2:aa1:y1:re</li>
+</ul>
+<h4 id="get_peers">get_peers</h4><p>get_peers 与 torrent 文件的 infohash 有关。这时 KPRC 协议中的 “q” = “get_peers”。get_peers 请求包含 2 个参数。第一个参数是 id，包含了请求节点的 ID。第二个参数是 info_hash，它代表 torrent 文件的 infohash。如果被请求的节点有对应 info_hash 的 peers，他将返回一个关键字 values，这是一个列表类型的字符串。每一个字符串包含了 “CompactIP-address/portinfo” 格式的 peers 信息。如果被请求的节点没有这个 infohash 的 peers，那么他将返回关键字 nodes，这个关键字包含了被请求节点的路由表中离 info_hash 最近的 K 个节点，使用 “Compactnodeinfo” 格式回复。在这两种情况下，关键字 token 都将被返回。token 关键字在今后的 annouce_peer 请求中必须要携带。token 是一个短的二进制字符串。</p>
+<ul>
+<li>参数: {“id” : “<querying nodes="" id="">“, “info_hash” : “<20-byte infohash="" of="" target="" torrent="">“}</20-byte></querying></li>
+<li>回复: {“id” : “<queried nodes="" id="">“, “token” :”<opaque write="" token="">“, “values” : [“<peer 1="" info="" string="">“, “<peer 2="" info="" string="">“]}</peer></peer></opaque></queried></li>
+<li>或: {“id” : “<queried nodes="" id="">“, “token” :”<opaque write="" token="">“, “nodes” : “<compact node="" info="">“}</compact></opaque></queried></li>
+</ul>
+<h4 id="报文包例子_Example_Packets:">报文包例子 Example Packets:</h4><ul>
+<li>get_peers Query = {“t”:”aa”, “y”:”q”, “q”:”get_peers”, “a”: {“id”:”abcdefghij0123456789”, “info_hash”:”mnopqrstuvwxyz123456”}}</li>
+<li>bencoded = d1:ad2:id20:abcdefghij01234567899:info_hash20:mnopqrstuvwxyz123456e1:q9:get_peers1:t2:aa1:y1:qe</li>
+<li>Response with peers = {“t”:”aa”, “y”:”r”, “r”: {“id”:”abcdefghij0123456789”, “token”:”aoeusnth”, “values”: [“axje.u”, “idhtnm”]}}</li>
+<li>bencoded = d1:rd2:id20:abcdefghij01234567895:token8:aoeusnth6:valuesl6:axje.u6:idhtnmee1:t2:aa1:y1:re</li>
+<li>Response with closest nodes = {“t”:”aa”, “y”:”r”, “r”: {“id”:”abcdefghij0123456789”, “token”:”aoeusnth”, “nodes”: “def456…”}}</li>
+<li>bencoded = d1:rd2:id20:abcdefghij01234567895:nodes9:def456…5:token8:aoeusnthe1:t2:aa1:y1:re</li>
+</ul>
+<h4 id="announce_peer">announce_peer</h4><p>这个请求用来表明发出 announce_peer 请求的节点，正在某个端口下载 torrent 文件。announce_peer 包含 4 个参数。第一个参数是 id，包含了请求节点的 ID；第二个参数是 info_hash，包含了 torrent 文件的 infohash；第三个参数是 port 包含了整型的端口号，表明 peer 在哪个端口下载；第四个参数数是 token，这是在之前的 get_peers 请求中收到的回复中包含的。收到 announce_peer 请求的节点必须检查这个 token 与之前我们回复给这个节点 get_peers 的 token 是否相同。如果相同，那么被请求的节点将记录发送 announce_peer 节点的 IP 和请求中包含的 port 端口号在 peer 联系信息中对应的 infohash 下。</p>
+<ul>
+<li>参数: {“id” : “<querying nodes="" id="">“, “implied_port”: <0 1="" or="">, “info_hash” : “<20-byte infohash="" of="" target="" torrent="">“, “port” : <port number="">, “token” : “<opaque token="">“}</opaque></port></20-byte></0></querying></li>
+<li>回复: {“id” : “<queried nodes="" id="">“}</queried></li>
+</ul>
+<h4 id="报文包例子_Example_Packets:-1">报文包例子 Example Packets:</h4><ul>
+<li>announce_peers Query = {“t”:”aa”, “y”:”q”, “q”:”announce_peer”, “a”: {“id”:”abcdefghij0123456789”, “implied_port”: 1, “info_hash”:”mnopqrstuvwxyz123456”, “port”: 6881, “token”: “aoeusnth”}}</li>
+<li>bencoded = d1:ad2:id20:abcdefghij01234567899:info_hash20:<br> mnopqrstuvwxyz1234564:porti6881e5:token8:aoeusnthe1:q13:announce_peer1:t2:aa1:y1:qe</li>
+<li>Response = {“t”:”aa”, “y”:”r”, “r”: {“id”:”mnopqrstuvwxyz123456”}}</li>
+<li>bencoded = d1:rd2:id20:mnopqrstuvwxyz123456e1:t2:aa1:y1:re</li>
+</ul>
+<h3 id="References">References</h3><ul>
+<li>[1] Peter Maymounkov, David Mazieres, “Kademlia: A Peer-to-peer Information System Based on the XOR Metric”, IPTPS 2002. <a href="http://www.cs.rice.edu/Conferences/IPTPS02/109.pdf" target="_blank" rel="external">http://www.cs.rice.edu/Conferences/IPTPS02/109.pdf</a></li>
+<li>[2] Use SHA1 and plenty of entropy to ensure a unique ID.</li>
+</ul>
+<h3 id="Copyright">Copyright</h3><p>This document has been placed in the public domain.</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h3 id="前言">前言</h3><p>BitTorrent 使用”分布式哈希表”(DHT)来为无 tracker 的种子(torrents)存储 peer 之间的联系信息。这样每个 peer 都成了 tracker。这个协议基于 Kademila[1] 网络并且在 UDP ]]>

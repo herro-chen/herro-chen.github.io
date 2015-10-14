@@ -28,7 +28,7 @@
 
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="DHT," />
 
 
 
@@ -39,16 +39,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="欢迎使用Hexo!">
+<meta name="description" content="因有些读者说”如何养一只DHT爬虫”文讲得不是很”白痴”, 所以再开篇文, 来个通俗的.
+要想了解DHT出现历史的话, 请先准备好一瓶啤酒, 听我慢慢道来:
+客户端 &amp;lt;-&amp;gt; 服务器端:很久很久以前, 当要下载一个资源时, 那么只能去提供该资源的服务器进行下载, 如果同时只有10来个人进行下载的话, 服务器负载还没什么问题, 但是, 当这资源越来越热门时, 就会有成千上万的人蜂拥进来,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://herro.ml/2015/hello-world/index.html">
+<meta property="og:title" content="【转】大白话讲解DHT原理及出现历史">
+<meta property="og:url" content="http://herro.ml/2015/easy-know-DHT/index.html">
 <meta property="og:site_name" content="Herro's Blog">
-<meta property="og:description" content="欢迎使用Hexo!">
-<meta property="og:updated_time" content="2015-10-12T07:31:01.008Z">
+<meta property="og:description" content="因有些读者说”如何养一只DHT爬虫”文讲得不是很”白痴”, 所以再开篇文, 来个通俗的.
+要想了解DHT出现历史的话, 请先准备好一瓶啤酒, 听我慢慢道来:
+客户端 &amp;lt;-&amp;gt; 服务器端:很久很久以前, 当要下载一个资源时, 那么只能去提供该资源的服务器进行下载, 如果同时只有10来个人进行下载的话, 服务器负载还没什么问题, 但是, 当这资源越来越热门时, 就会有成千上万的人蜂拥进来,">
+<meta property="og:updated_time" content="2015-10-14T10:19:36.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="欢迎使用Hexo!">
+<meta name="twitter:title" content="【转】大白话讲解DHT原理及出现历史">
+<meta name="twitter:description" content="因有些读者说”如何养一只DHT爬虫”文讲得不是很”白痴”, 所以再开篇文, 来个通俗的.
+要想了解DHT出现历史的话, 请先准备好一瓶啤酒, 听我慢慢道来:
+客户端 &amp;lt;-&amp;gt; 服务器端:很久很久以前, 当要下载一个资源时, 那么只能去提供该资源的服务器进行下载, 如果同时只有10来个人进行下载的话, 服务器负载还没什么问题, 但是, 当这资源越来越热门时, 就会有成千上万的人蜂拥进来,">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -58,7 +64,7 @@
   };
 </script>
 
-  <title> Hello World | Herro's Blog </title>
+  <title> 【转】大白话讲解DHT原理及出现历史 | Herro's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -186,7 +192,7 @@
           
           
             
-              Hello World
+              【转】大白话讲解DHT原理及出现历史
             
           
         </h1>
@@ -195,8 +201,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-10T10:10:10+08:00" content="2015-10-10">
-            2015-10-10
+          <time itemprop="dateCreated" datetime="2015-10-14T18:11:20+08:00" content="2015-10-14">
+            2015-10-14
           </time>
         </span>
 
@@ -206,8 +212,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/hello-world/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/hello-world/" itemprop="commentsCount"></span>
+              <a href="/2015/easy-know-DHT/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/easy-know-DHT/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -221,7 +227,26 @@
       
 
       
-        <span itemprop="articleBody"><p>欢迎使用Hexo!</p>
+        <span itemprop="articleBody"><p>因有些读者说”如何养一只DHT爬虫”文讲得不是很”白痴”, 所以再开篇文, 来个通俗的.</p>
+<p>要想了解DHT出现历史的话, 请先准备好一瓶啤酒, 听我慢慢道来:</p>
+<h3 id="客户端_&lt;-&gt;_服务器端:">客户端 &lt;-&gt; 服务器端:</h3><p>很久很久以前, 当要下载一个资源时, 那么只能去提供该资源的服务器进行下载, 如果同时只有10来个人进行下载的话, 服务器负载还没什么问题, 但是, 当这资源越来越热门时, 就会有成千上万的人蜂拥进来, 那么服务器就会受不了! 为了支持更多人同时下载, 就会加大带宽, 增加服务器! 这成本实在是太高了! .</p>
+<h3 id="客户端_&lt;-_tracker_-&gt;_客户端:">客户端 &lt;- tracker -&gt; 客户端:</h3><p>后来, 一个很牛逼的技术出现了, 那就是架设一台tracker服务器. 当张三要发布”我与苍井空大战一夜.avi”的资源时, 对该资源制作一个种子, 这个种子记录了该资源的tracker服务器地址, 名字, 大小, 创建时间, 块长度, 每一逻辑块的hash值等描述信息. 告知tracker服务器我有这么个资源, 然后张三把这个很小很小的种子文件发布到各个网站, 这邪恶的资源当然就在张三电脑里. 当李四下载该种子后, 用比如迅雷, 比特精灵这类似的软件打开时, 该软件就会向种子记录的tracker进行请求, 说要下载”我与苍井空大战一夜.avi”资源, tracker就会自己找到谁有该资源, 当找到张三有时, tracker就会把张三的地址信息发给李四, 然后李四就会连接张三进行下载. 在这里, tracker也会把李四给记录下载, 当王五也想下载时, tracker会把张三, 李四的地址信息发给王五, 那么王五可能会到张三那里下载该资源的前一半, 到李四下载后一半. 后面就以此循环.</p>
+<p>这里的tracker就不需要存储真实资源, 它只仅仅存储谁有什么该资源的信息而已, 所以需要的带宽和服务器配置就不需要那么高了.这就是为什么”下载人数越多, 下载速度越快”. 当然, 上述的描述肯定没那么详细, 想要看详细技术的话, 自行google去或者看www.bittorrent.org/beps/bep_0003.html, www.bittorrent.org/introduction.html官方文档. 你们可以发现, tracker这种技术有一个致命缺点: 假如所有主要的tracker服务器被封后(因含有色情种子, 反party视频种子等)或者出了故障, 你们就算得到了种子, 谁来当中介人? 你们怎么去下载资源? 有木有人记得几年前, 海盗湾因涉及版权法什么的被抓了? 嗯, 话说那年苍井空还是处女, 我还是个玩泥巴的少年. 哈哈!</p>
+<h3 id="客户端_&lt;-&gt;_客户端_(P2P):">客户端 &lt;-&gt; 客户端 (P2P):</h3><p>后来, 一个更牛逼哄哄的技术又出现了, 你们也猜到了, DHT. </p>
+<p>DHT爬虫原理是什么, 如何工作的?</p>
+<h4 id="原理大白话版:">原理大白话版:</h4><p>我只有张三这么个邻居, 但是我立志要做包打听这个神圣的职业, 于是我要张三把他的邻居李四, 王五介绍给我, 当我认识了李四, 王五后, 也认识了他们的邻居圈, 照此不停地循环下去. 在此期间, 我会跟成千上万的邻居聊天, 他们会给我说一些家常, 新闻, 八卦什么的, 我都一一给记录下来. 假如某一天, 我其中一邻居王麻子向我打听谁家有发情的公猪, 我会把熊大的地址告诉他. 要是后来王麻子告诉我他得到了这个公猪并与自己的母猪交配后, 并下了很多小公猪, 这些小公猪长大并进入发情期, 我会把这事儿记录下来, 当其他邻居也问我这么个问题时, 我就可以告诉他们可以去王麻子和熊大家去要. 久而久之, 我就真正成为了包打听, 知道目前什么东西抢手. 正如那句”当你认识了十个人时, 你就认识了全世界.” (笔者是乡下混混, 原谅我用这么挫的例子)<br>从上述可以看到这些特点: 邻居都是相对较近的, 都在收敛在一定范围里; 不主动打听消息; 认识的邻居多.</p>
+<p>我这里引用个小虾的形象比拟: 把DHT网络比作一个朋友圈子, 你想进入这个圈子必须要有一个人带领你进去, 通常会有一些特定人负责介绍你进入这个圈子. 当你被A带进这个朋友圈, 此刻你就只认识A而已. 但是你的目的是想找奥巴马总统, 所以你会问A要奥巴马的联系方式, 但是A没有奥巴马的联系方式, 他会介绍一个美国朋友B给你认识. 于是你去问B要奥巴马的联系方式, B其实也没有奥巴马的联系方式, 但是B认识一个州长C. 于是你又得到了C的联系方式, C把奥巴马的联系方式告诉你之后, 你就可以写信或者致电给奥巴马了. </p>
+<p>地址: <a href="http://xiaoxia.org/2013/05/11/magnet-search-engine/" target="_blank" rel="external">http://xiaoxia.org/2013/05/11/magnet-search-engine/</a> 建议把评论也看看, 评论还涉及到了一些技术解惑, 特别有用.</p>
+<h4 id="工作流程技术版:">工作流程技术版:</h4><p>拿一个通过磁力链接下载资源做简单讲解吧. 当你得到一个磁力链接, 使用比如迅雷, 迅雷就会实例化出一个DHT节点, 加入DHT网络, 然后把磁力链接的那个40字符的infohash提取出来, “逆算”成20字节的infohash, 向离该infohash最近的几个节点发送get_peers请求, 当得到对方回复peers列表时, 迅雷又实例化出一个BT客户端, 向这些peers请求下载种子, 得到种子并打开后, 如果有tracker列表, 就会像上面的”客户端 &lt;- tracker -&gt; 客户端”说的那样, 如果没有, 那一定会有拥有真正资源的node列表, 那么就会向这些node请求真实资源下载.</p>
+<p>注: 实际上, 迅雷得到磁力链接后, 会先到它自己的种子库里下载, 然后才估计通过DHT网络下载.</p>
+<h3 id="做一个DHT爬虫的大概步骤:">做一个DHT爬虫的大概步骤:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>, 生成一个node ID.</span><br><span class="line"><span class="number">2</span>, 构建路由表</span><br><span class="line"><span class="number">3</span>, 加入DHT网络, 不停地使用find_node</span><br><span class="line"><span class="number">4</span>, 处理ping, find_node, get_peers, announce_peer <span class="number">4</span>个请求</span><br><span class="line"><span class="number">5</span>, 定时刷新路由表</span><br><span class="line"><span class="number">6</span>, 持久存储路由表(可选)</span><br></pre></td></tr></table></figure>
+<h3 id="需要注意的地方:">需要注意的地方:</h3><p>1, 传输和接收时, 多字节数字都要按网络字节序来. 不然你接收的数字不是发送人写的那样, 你发出的数字, 对方接收的也不是你写的那样, 正如牛嘴对马嘴. 字符串就不需要”网络to主机”和”主机to网络”了, 毕竟用的都是ascii码, 每一个字符都是1字节, 转不转都是一样, 按顺序发出就是了. 详情请google网络字节序/主机字节序.</p>
+<p>2, DHT协议文档的那句”When a bucket is full of known good nodes, no more nodes may be added unless our own node ID falls within the range of the bucket.” 指的是当有一个新node将要插入对应的bucket时, 如果这个bucket是满的且好的node时, 在分裂之前, 把自身的node ID与这个bucket负责ID范围进行比较, 看是不是在这个范围里, 比如这个bucket负责范围是0至8, 那么待插入的新node的ID是7的话, 只有在满足0&lt;=7&lt;8的情况才可以进行拆该bucket, 不在这个范围时就直接抛弃.</p>
+<p>3, 当回复对方的时候, “transaction ID”(即”t”键)是对方的”transaction ID”, 只有这样, 对方才知道你回应的是对方的哪一个请求包. 要知道DHT是基于UDP的. 反过来, 你也知道对方回应的是你哪条请求. 用这个就可以做一个超时处理和回应处理, 把你发出请求的”transaction ID”值作为key, 为该key绑定一个回调函数, 然后开一个定时器, 时间到了就把这个回调函数删除了, 如果对方在这超时时间内回应, 就触发该回调函数, 做该做的事. 请求对方时, “transaction ID”是你自己随便指定的, 对方回复的信息包里的”t”就跟你之前的请求包的”t”一样.</p>
+<p>4, 要想认识很多的node, 你就要先认识一个长期在线的node, 比如开源软件transmissionbt就提供了一长期在线node, 地址为: dht.transmissionbt.com:6881. 然后使用find_node向这个node请求, 请求文里的target是自身node ID, 意思就是向它询问离我最近的node都有哪些? 对方回应后, 提取里面的node, 向这些node进行find_node, 循环不停地重复.</p>
+<p>ok! 现在应该对DHT有了大概了解, 如真想去实现一个DHT爬虫的话, 那么就需要看官方文档了, 里面对实现算法做了介绍, 比任何人”翻译”的博文都要详细正确得多, 完全靠博文就能写DHT爬虫是不太现实滴, 只能作为参考.</p>
+<p>要想看个大概样例可移步到如何养一只DHT爬虫</p>
+<p>欢迎吐槽拍砖, 有不对的地方请指点.</p>
 </span>
       
     </div>
@@ -230,7 +255,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
+            <a href="/tags/DHT/" rel="tag">#DHT</a>
           
         </div>
       
@@ -239,11 +264,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/what-is-DHT/" rel="prev">【转】DHT Protocol：BitTorrent DHT 协议中文翻译</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/what-is-DHT/" rel="next">【转】DHT Protocol：BitTorrent DHT 协议中文翻译</a>
             
           </div>
         </div>
@@ -258,10 +283,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/hello-world/"
-     data-title="Hello World"
+        <div class="ds-share flat" data-thread-key="2015/easy-know-DHT/"
+     data-title="【转】大白话讲解DHT原理及出现历史"
      data-content=""
-     data-url="http://herro.ml/2015/hello-world/">
+     data-url="http://herro.ml/2015/easy-know-DHT/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -287,8 +312,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/hello-world/"
-                   data-title="Hello World" data-url="http://herro.ml/2015/hello-world/">
+              <div class="ds-thread" data-thread-key="2015/easy-know-DHT/"
+                   data-title="【转】大白话讲解DHT原理及出现历史" data-url="http://herro.ml/2015/easy-know-DHT/">
               </div>
             
           </div>
@@ -390,7 +415,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端_<->_服务器端:"><span class="nav-number">1.</span> <span class="nav-text">客户端 <-> 服务器端:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端_<-_tracker_->_客户端:"><span class="nav-number">2.</span> <span class="nav-text">客户端 <- tracker -> 客户端:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端_<->_客户端_(P2P):"><span class="nav-number">3.</span> <span class="nav-text">客户端 <-> 客户端 (P2P):</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理大白话版:"><span class="nav-number">3.1.</span> <span class="nav-text">原理大白话版:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作流程技术版:"><span class="nav-number">3.2.</span> <span class="nav-text">工作流程技术版:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#做一个DHT爬虫的大概步骤:"><span class="nav-number">4.</span> <span class="nav-text">做一个DHT爬虫的大概步骤:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需要注意的地方:"><span class="nav-number">5.</span> <span class="nav-text">需要注意的地方:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
