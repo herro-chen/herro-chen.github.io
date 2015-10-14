@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://herro.ml/"/>
-  <updated>2015-10-14T10:19:36.841Z</updated>
+  <updated>2015-10-14T10:22:49.156Z</updated>
   <id>http://herro.ml/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://herro.ml/2015/easy-know-DHT/"/>
     <id>http://herro.ml/2015/easy-know-DHT/</id>
     <published>2015-10-14T10:11:20.000Z</published>
-    <updated>2015-10-14T10:19:36.841Z</updated>
+    <updated>2015-10-14T10:22:49.156Z</updated>
     <content type="html"><![CDATA[<p>因有些读者说”如何养一只DHT爬虫”文讲得不是很”白痴”, 所以再开篇文, 来个通俗的.</p>
 <p>要想了解DHT出现历史的话, 请先准备好一瓶啤酒, 听我慢慢道来:</p>
 <h3 id="客户端_&lt;-&gt;_服务器端:">客户端 &lt;-&gt; 服务器端:</h3><p>很久很久以前, 当要下载一个资源时, 那么只能去提供该资源的服务器进行下载, 如果同时只有10来个人进行下载的话, 服务器负载还没什么问题, 但是, 当这资源越来越热门时, 就会有成千上万的人蜂拥进来, 那么服务器就会受不了! 为了支持更多人同时下载, 就会加大带宽, 增加服务器! 这成本实在是太高了! .</p>
@@ -32,7 +32,7 @@
 <p>地址: <a href="http://xiaoxia.org/2013/05/11/magnet-search-engine/" target="_blank" rel="external">http://xiaoxia.org/2013/05/11/magnet-search-engine/</a> 建议把评论也看看, 评论还涉及到了一些技术解惑, 特别有用.</p>
 <h4 id="工作流程技术版:">工作流程技术版:</h4><p>拿一个通过磁力链接下载资源做简单讲解吧. 当你得到一个磁力链接, 使用比如迅雷, 迅雷就会实例化出一个DHT节点, 加入DHT网络, 然后把磁力链接的那个40字符的infohash提取出来, “逆算”成20字节的infohash, 向离该infohash最近的几个节点发送get_peers请求, 当得到对方回复peers列表时, 迅雷又实例化出一个BT客户端, 向这些peers请求下载种子, 得到种子并打开后, 如果有tracker列表, 就会像上面的”客户端 &lt;- tracker -&gt; 客户端”说的那样, 如果没有, 那一定会有拥有真正资源的node列表, 那么就会向这些node请求真实资源下载.</p>
 <p>注: 实际上, 迅雷得到磁力链接后, 会先到它自己的种子库里下载, 然后才估计通过DHT网络下载.</p>
-<h3 id="做一个DHT爬虫的大概步骤:">做一个DHT爬虫的大概步骤:</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>, 生成一个node ID.</span><br><span class="line"><span class="number">2</span>, 构建路由表</span><br><span class="line"><span class="number">3</span>, 加入DHT网络, 不停地使用find_node</span><br><span class="line"><span class="number">4</span>, 处理ping, find_node, get_peers, announce_peer <span class="number">4</span>个请求</span><br><span class="line"><span class="number">5</span>, 定时刷新路由表</span><br><span class="line"><span class="number">6</span>, 持久存储路由表(可选)</span><br></pre></td></tr></table></figure>
+<h3 id="做一个DHT爬虫的大概步骤:">做一个DHT爬虫的大概步骤:</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">生成一个node ID.</span><br><span class="line">构建路由表</span><br><span class="line">加入DHT网络, 不停地使用find_node</span><br><span class="line">处理<span class="built_in">ping</span>, find_node, get_peers, announce_peer <span class="number">4</span>个请求</span><br><span class="line">定时刷新路由表</span><br><span class="line">持久存储路由表(可选)</span><br></pre></td></tr></table></figure>
 <h3 id="需要注意的地方:">需要注意的地方:</h3><p>1, 传输和接收时, 多字节数字都要按网络字节序来. 不然你接收的数字不是发送人写的那样, 你发出的数字, 对方接收的也不是你写的那样, 正如牛嘴对马嘴. 字符串就不需要”网络to主机”和”主机to网络”了, 毕竟用的都是ascii码, 每一个字符都是1字节, 转不转都是一样, 按顺序发出就是了. 详情请google网络字节序/主机字节序.</p>
 <p>2, DHT协议文档的那句”When a bucket is full of known good nodes, no more nodes may be added unless our own node ID falls within the range of the bucket.” 指的是当有一个新node将要插入对应的bucket时, 如果这个bucket是满的且好的node时, 在分裂之前, 把自身的node ID与这个bucket负责ID范围进行比较, 看是不是在这个范围里, 比如这个bucket负责范围是0至8, 那么待插入的新node的ID是7的话, 只有在满足0&lt;=7&lt;8的情况才可以进行拆该bucket, 不在这个范围时就直接抛弃.</p>
 <p>3, 当回复对方的时候, “transaction ID”(即”t”键)是对方的”transaction ID”, 只有这样, 对方才知道你回应的是对方的哪一个请求包. 要知道DHT是基于UDP的. 反过来, 你也知道对方回应的是你哪条请求. 用这个就可以做一个超时处理和回应处理, 把你发出请求的”transaction ID”值作为key, 为该key绑定一个回调函数, 然后开一个定时器, 时间到了就把这个回调函数删除了, 如果对方在这超时时间内回应, 就触发该回调函数, 做该做的事. 请求对方时, “transaction ID”是你自己随便指定的, 对方回复的信息包里的”t”就跟你之前的请求包的”t”一样.</p>
