@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[Herro's Blog]]></title>
-  
+  <subtitle><![CDATA[犹豫者多失]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://herro.ml/"/>
   <updated>2015-10-14T10:22:49.156Z</updated>
