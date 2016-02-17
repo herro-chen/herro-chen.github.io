@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://herro.ml/"/>
-  <updated>2015-10-14T10:22:49.156Z</updated>
+  <updated>2016-02-17T11:30:57.987Z</updated>
   <id>http://herro.ml/</id>
   
   <author>
@@ -13,6 +13,21 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[mysql-foreign-key]]></title>
+    <link href="http://herro.ml/2016/mysql-foreign-key/"/>
+    <id>http://herro.ml/2016/mysql-foreign-key/</id>
+    <published>2016-02-17T11:28:15.000Z</published>
+    <updated>2016-02-17T11:30:57.987Z</updated>
+    <content type="html"><![CDATA[<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">主表，从表【MySql】</span><br><span class="line"></span><br><span class="line">空、RESTRICT、<span class="literal">NO</span> ACTION</span><br><span class="line">删除：从表记录不存在时，主表才可以删除。删除从表，主表不变</span><br><span class="line">更新：从表记录不存在时，主表才可以更新。更新从表，主表不变</span><br><span class="line"></span><br><span class="line"><span class="built_in">CASCADE</span></span><br><span class="line">删除：删除主表时自动删除从表。删除从表，主表不变</span><br><span class="line">更新：更新主表时自动更新从表。更新从表，主表不变</span><br><span class="line"></span><br><span class="line">SET <span class="literal">NULL</span></span><br><span class="line">删除：删除主表时自动更新从表值为<span class="literal">NULL</span>。删除从表，主表不变</span><br><span class="line">更新：更新主表时自动更新从表值为<span class="literal">NULL</span>。更新从表，主表不变</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span ]]>
+    </summary>
+    
+      <category term="mysql" scheme="http://herro.ml/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[【转】大白话讲解DHT原理及出现历史]]></title>
